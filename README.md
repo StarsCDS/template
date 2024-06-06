@@ -2,7 +2,7 @@
 
 ## Setup
 
-- Install [`poetry`](https://python-poetry.org/docs/#installing-with-the-official-installer)
+- Install [`poetry`]()
 
 - Install the virtual environment
   ```sh
@@ -17,8 +17,8 @@
 - Activate `pre-commit` hooks
   ```sh
   pre-commit install
-  ```
-  
+  ```sh
+
 - Download the raw datasets (optional)
   ```sh
   dvc pull
@@ -48,3 +48,8 @@
 - Note all the steps that you think are worth noting along with any good tutorials for the
   particular task that you are doing.
 - Make sure that you are following [coding best practices for python](https://www.datacamp.com/blog/python-best-practices-for-better-code).
+
+##Creating a custom dataset and dataloaders using the raw data
+-Dataset and Dataloaders in pyTorch  are essential for handling data efficiently.
+-Here is the resources to get started with:https://pytorch.org/tutorials/beginner/basics/data_tutorial.html
+-A custom Dataset class must implement three functions: __init__, __len__, and __getitem__
