@@ -24,11 +24,6 @@
   dvc pull
   ```
 
-- Download the raw datasets (optional)
-  ```sh
-  dvc pull
-  ```
-
 ## Current Tasks
 
 - [ ] Add functions to create custom pytorch datasets and dataloaders from raw data
