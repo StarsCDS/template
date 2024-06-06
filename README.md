@@ -18,7 +18,7 @@
   ```sh
   pre-commit install
   ```
-  
+
 - Download the raw datasets (optional)
   ```sh
   dvc pull
