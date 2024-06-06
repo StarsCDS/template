@@ -1,6 +1,8 @@
 name: Test and Run ML Model
 
-on: pull_request
+on:
+  pull_request:
+    branches: ["main"]
 
 permissions:
   contents: read
@@ -21,7 +23,7 @@ jobs:
         run: poetry install
       - name: Lint code
         id: lint
-        run: ./lint.sh
+        run: make lint
       - name: Run tests
         if: steps.lint.outcome == 'success'
-        run: ./test.sh
+        run: make test
