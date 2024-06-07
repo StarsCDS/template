@@ -7,7 +7,6 @@
 - Install the virtual environment
   ```sh
   poetry install
-  sudo apt install python3-poetry (other code)
   ```
 
 - Activate the virtual environment
