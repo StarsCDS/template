@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "template"
+version = "0.1.0"
+description = "Template"
+authors = ["Lokesh Mohanty <lokeshm@iisc.ac.in>"]
+readme = "README.md"
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "^3.10"
+dvc = "^3.51.2"
+pre-commit = "^3.7.1"
+clearml = "^1.16.1"
+dvc-ssh = "^4.1.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
