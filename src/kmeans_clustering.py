@@ -1,5 +1,5 @@
 import pandas as pd
-from sklearn.cluster import KMeans
+from sklearn.cluster import KMeans 
 import matplotlib.pyplot as plt
 
 def load_data(file_path):
