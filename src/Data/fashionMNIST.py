@@ -27,8 +27,8 @@ class FashionMNISTCSV(Dataset):
 script_dir = os.path.dirname(os.path.abspath(__file__))
 
 # Paths to your CSV files relative to the script location
-train_csv_file = os.path.join(script_dir, "..", "data", "fashion-mnist_train.csv")
-test_csv_file = os.path.join(script_dir, "..", "data", "fashion-mnist_test.csv")
+train_csv_file = os.path.join(script_dir, "..", "..", "data", "fashion-mnist_train.csv")
+test_csv_file = os.path.join(script_dir, "..", "..", "data", "fashion-mnist_test.csv")
 
 # Check if files exist
 if not os.path.exists(train_csv_file):
