@@ -4,6 +4,5 @@
 -A custom Dataset class must implement three functions: __init__, __len__, and __getitem__
 
 ##Steps to follow for initializing the function create Custom pytorch dataset and dataloaders
--Once after dvc pull.
--change directory to data and unzip the dataset zip files.
+-first do environment setup using Poetry, activate the pre-commint and do dvc pull.
 -And then run the executable "fashionMNIST.py" file.
