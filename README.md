@@ -58,4 +58,4 @@
 ##Steps to follow for initializing the function create Custom pytorch dataset and dataloaders
 -Once after dvc pull.
 -change directory to data and unzip the dataset zip files.
--And then run the "fashionMNIST.py" file.
+-And then run the executable "fashionMNIST.py" file.
