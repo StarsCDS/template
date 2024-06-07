@@ -17,7 +17,7 @@
 - Activate `pre-commit` hooks
   ```sh
   pre-commit install
-  ```sh
+  ```
 
 - Download the raw datasets (optional)
   ```sh
@@ -40,6 +40,7 @@
 - [poetry](https://python-poetry.org/) for python dependency management
 - [pylint](https://pypi.org/project/pylint/), [black](https://github.com/psf/black) for code quality
 - [pytest](https://docs.pytest.org/en/8.2.x/) for all types of tests
+- [typer](https://typer.tiangolo.com/) for easy cli
 - [clearml](https://clear.ml/) for experiment tracking and model monitoring
 
 ## Contributing Instructions

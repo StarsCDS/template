@@ -1,0 +1,29 @@
+name: Test and Run ML Model
+
+on:
+  pull_request:
+    branches: ["main"]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v3
+        with:
+          python-version: "3.10"
+      - uses: abatilo/actions-poetry@v2
+        with:
+          poetry-version: "1.8.3"
+      - name: Install dependencies
+        run: poetry install
+      - name: Lint code
+        id: lint
+        run: make lint
+      - name: Run tests
+        if: steps.lint.outcome == 'success'
+        run: make test
