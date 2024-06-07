@@ -3,6 +3,7 @@ import torch
 from torch.utils.data import Dataset, DataLoader
 import matplotlib.pyplot as plt
 import os
+import zipfile
 
 
 class FashionMNISTCSV(Dataset):
@@ -25,10 +26,31 @@ class FashionMNISTCSV(Dataset):
 
 # Get the directory of the current script
 script_dir = os.path.dirname(os.path.abspath(__file__))
+# Paths to Zip files relative to the script location
+train_zip_file = os.path.join(
+    script_dir, "..", "..", "data", "fashion-mnist_train.csv.zip"
+)
+test_zip_file = os.path.join(
+    script_dir, "..", "..", "data", "fashion-mnist_test.csv.zip"
+)
 
 # Paths to your CSV files relative to the script location
 train_csv_file = os.path.join(script_dir, "..", "..", "data", "fashion-mnist_train.csv")
 test_csv_file = os.path.join(script_dir, "..", "..", "data", "fashion-mnist_test.csv")
+
+
+def extract_zip_if_not_exists(zip_file_path, target_file_path):
+    if not os.path.exists(target_file_path):
+        with zipfile.ZipFile(zip_file_path, "r") as zip_ref:
+            zip_ref.extractall(target_file_path)
+        print(f"Files extracted from Zip files")
+    else:
+        print(f"Files already extracted from Zip files")
+
+
+# extract the train and the test dataset if they are not already exist
+extract_zip_if_not_exists(train_zip_file, train_csv_file)
+extract_zip_if_not_exists(test_zip_file, test_csv_file)
 
 # Check if files exist
 if not os.path.exists(train_csv_file):
