@@ -26,4 +26,4 @@ jobs:
         run: make lint
       - name: Run tests
         if: steps.lint.outcome == 'success'
-        run: make test
+        run: PYTHONPATH=. make test

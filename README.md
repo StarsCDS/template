@@ -26,10 +26,7 @@
 
 ## Current Tasks
 
-- [ ] Add functions to create custom pytorch datasets and dataloaders from raw data
-- [ ] Add tests for these custom datasets and dataloaders
-- [ ] Add CI pipelines for checking code linting and tests
-- [ ] Create supervised model for fashion MNIST dataset using pytorch
+- [ ] Add tests for custom datasets and dataloaders
 - [ ] Create supervised model for fashion MNIST dataset using pytorch-lightning
 - [ ] Use dvc to save the models and version them
 
