@@ -4,7 +4,7 @@ import unittest
 import torch
 
 # Add the src directory to the Python path
-# sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'src')))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "src")))
 
 from data.fmnist import get_data_loaders  # Adjust the import as needed
 
