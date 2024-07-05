@@ -3,3 +3,4 @@ lint:
 
 test:
 	poetry run pytest ./tests
+	PYTHONPATH=src poetry run pytest ./tests/data
