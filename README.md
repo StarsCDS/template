@@ -46,3 +46,7 @@
 - Note all the steps that you think are worth noting along with any good tutorials for the
   particular task that you are doing.
 - Make sure that you are following [coding best practices for python](https://www.datacamp.com/blog/python-best-practices-for-better-code).
+
+## For Documentation
+
+- [Pytest routine](https://github.com/StarsCDS/Documentations.git) for extended documentation in pytest routine
