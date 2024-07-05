@@ -18,7 +18,7 @@
   ```sh
   pre-commit install
   ```
-  
+
 - Download the raw datasets (optional)
   ```sh
   dvc pull
@@ -26,10 +26,7 @@
 
 ## Current Tasks
 
-- [ ] Add functions to create custom pytorch datasets and dataloaders from raw data
-- [ ] Add tests for these custom datasets and dataloaders
-- [ ] Add CI pipelines for checking code linting and tests
-- [ ] Create supervised model for fashion MNIST dataset using pytorch
+- [ ] Add tests for custom datasets and dataloaders
 - [ ] Create supervised model for fashion MNIST dataset using pytorch-lightning
 - [ ] Use dvc to save the models and version them
 
@@ -49,3 +46,7 @@
 - Note all the steps that you think are worth noting along with any good tutorials for the
   particular task that you are doing.
 - Make sure that you are following [coding best practices for python](https://www.datacamp.com/blog/python-best-practices-for-better-code).
+
+## For Documentation
+
+- [Pytest routine](https://github.com/StarsCDS/Documentations.git) for extended documentation in pytest routine
