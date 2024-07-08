@@ -39,9 +39,6 @@ class ClusteringModelSelector:
             print(f"{metric}: {score:.2f}")
 
 
-# Define the path to your CSV file
-csv_file = 'path/to/your/data.csv'
-
 # Get the dataloader
 dataloader = get_dataloader(csv_file, batch_size=32, shuffle=True)
 
