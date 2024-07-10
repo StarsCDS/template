@@ -7,11 +7,11 @@ import os
 import unittest
 
 # Add the src directory to the Python path
-sys.path.insert(
-    0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../../src"))
-)
+# sys.path.insert(
+#      0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../../src"))
+#  )
 
-from data.fmnist import get_data_loaders  # Ensure this import is correct
+from src.data.fmnist import get_data_loaders  # Ensure this import is correct
 
 
 class TestFashionMNISTDataLoader(unittest.TestCase):
@@ -31,9 +31,7 @@ class TestFashionMNISTDataLoader(unittest.TestCase):
         Test that the DataLoader correctly loads images and labels.
         """
         for images, labels in self.train_loader:
-            self.assertEqual(
-                images.shape[1:], (28, 28), "Image dimensions are incorrect"
-            )
+            self.assertEqual(images.shape[1:], (784,), "Image dimensions are incorrect")
             self.assertEqual(
                 labels.shape[0],
                 images.shape[0],

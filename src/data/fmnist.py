@@ -36,17 +36,16 @@ class FashionMNISTCSV(Dataset):
     def __init__(self, csv_file, transform=None):
         self.data = pd.read_csv(csv_file)
         self.transform = transform
+        self.sizes = {"input": 784, "output": 10}
 
     def __len__(self):
         return len(self.data)
 
     def __getitem__(self, idx):
         label = self.data.iloc[idx, 0]
-        image = self.data.iloc[idx, 1:].values.astype("float32").reshape(28, 28) / 255.0
-
+        image = self.data.iloc[idx, 1:].values.astype("float32")
         if self.transform:
             image = self.transform(image)
-
         return torch.tensor(image), label
 
 
@@ -77,6 +76,7 @@ def get_data_loaders(script_dir):
     Returns:
         tuple: Train and test DataLoader objects.
     """
+
     # Paths to Zip files relative to the script location
     train_zip_file = os.path.join(
         script_dir, "..", "..", "data", "fashion-mnist_train.csv.zip"

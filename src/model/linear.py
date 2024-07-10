@@ -1,13 +1,13 @@
 # References:
 ## build model: https://pytorch.org/tutorials/beginner/basics/buildmodel_tutorial.html
 ## save/load: https://pytorch.org/tutorials/beginner/basics/saveloadrun_tutorial.html
-
+import os
 import torch
 from torch import nn, optim
 from torch.utils.data import DataLoader
 import typer
 from rich.progress import track
-from src.data.fmnist import FMNIST
+from src.data.fmnist import FashionMNISTCSV
 
 app = typer.Typer()
 
@@ -66,8 +66,12 @@ SAVED_MODEL = "linear_model.pth"
 DEVICE = "cpu"
 BATCH_SIZE = 256
 EPOCHS = 5
+# Construct relative paths
+current_dir = os.path.dirname(os.path.abspath(__file__))
+train_csv_path = os.path.join(current_dir, "../../data/train/fashion-mnist_train.csv")
+test_csv_path = os.path.join(current_dir, "../../data/test/fashion-mnist_test.csv")
 
-data_train, data_test = FMNIST(), FMNIST(train=False)
+data_train, data_test = FashionMNISTCSV(train_csv_path), FashionMNISTCSV(test_csv_path)
 loader_train = DataLoader(data_train, batch_size=BATCH_SIZE)
 loader_test = DataLoader(data_test, batch_size=BATCH_SIZE)
 model = Linear(data_train.sizes["input"], data_train.sizes["output"]).to(DEVICE)
