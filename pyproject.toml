@@ -21,6 +21,7 @@ pandas = "^2.2.2"
 torch = "^2.3.0"
 torchvision = "^0.18.0"
 black = "^24.4.2"
+matplotlib = "^3.9.1"
 
 [build-system]
 requires = ["poetry-core"]
