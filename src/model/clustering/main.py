@@ -39,9 +39,12 @@ class ClusteringModelSelector:
             print(f"{metric}: {score:.2f}")
 
 
+<<<<<<< HEAD
 # Define the path to your CSV file
 csv_file = 'path/to/your/data.csv'
 
+=======
+>>>>>>> origin/add-clustering-folder
 # Get the dataloader
 dataloader = get_dataloader(csv_file, batch_size=32, shuffle=True)
 
@@ -64,4 +67,8 @@ elif selected_model == 'dbscan':
 elif selected_model == 'gmm':
     model_selector.select_model('gmm', n_components=3, random_state=42)
 elif selected_model == 'ensemble':
+<<<<<<< HEAD
     model_selector.select_model('ensemble', n_clusters=3)
+=======
+    model_selector.select_model('ensemble', n_clusters=3)
+>>>>>>> origin/add-clustering-folder
