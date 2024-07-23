@@ -1,7 +1,9 @@
 # References:
 ## https://pytorch.org/tutorials/beginner/basics/data_tutorial.html#creating-a-custom-dataset-for-your-files
 ## https://pytorch.org/tutorials/recipes/recipes/custom_dataset_transforms_loader.html
-
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from torch.utils.data import Dataset, DataLoader
 from torchvision.transforms import ToTensor
 
