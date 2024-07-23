@@ -86,7 +86,7 @@ def train():
 
 
 @app.command()
-def evalualte():
+def evaluate():
     model.load_state_dict(torch.load(SAVED_MODEL))
     model.eval()
 
