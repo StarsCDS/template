@@ -11,8 +11,8 @@
 
 ## Features
 
-- Synthetic data loader in `data/`
-- 7 implemented clustering models:
+- Synthetic radar_synthetic dataloader in `data/`
+- Clustering models implemented:
   1. KMeans
   2. DBSCAN
   3. GMM (Gaussian Mixture Model)
@@ -21,7 +21,7 @@
   6. OPTICS
   7. HDBSCAN
 - Visualization utilities in `utils/visualization.py`
-- Plots saved in `model/plots/` directory
+- Results utilities in `utils/scores.py`
 
 ## Usage
 

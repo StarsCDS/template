@@ -1,12 +1,16 @@
 """Ensemble Clustering implementation."""
 
 from typing import Dict, Any
+import numpy as np
+import pandas as pd
+from sklearn.cluster import KMeans
+from sklearn.mixture import GaussianMixture
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import silhouette_score
+from scipy.optimize import linear_sum_assignment
 
-from config import (
-    np, pd, KMeans, GaussianMixture, RandomForestClassifier,
-    silhouette_score, linear_sum_assignment, MAX_CLUSTERS,
-    plot_ensemble, calculate_clustering_scores
-)
+from src.config import MAX_CLUSTERS
+from src.utils.scores import calculate_clustering_scores
 
 class EnsembleClusterer:
     """Ensemble Clustering class."""
@@ -14,37 +18,30 @@ class EnsembleClusterer:
     def __init__(self):
         self.max_clusters = MAX_CLUSTERS
 
-    def run(self, _, features_scaled: np.ndarray, output_dir: str) -> Dict[str, Any]:
+    def run(self, _, features_scaled: np.ndarray) -> Dict[str, Any]:
         """Run Ensemble Clustering algorithm."""
         results = self.evaluate_clustering_models(features_scaled)
-        optimal_n = results.loc[results[['kmeans_silhouette', 'gmm_silhouette']].mean(axis=1).idxmax(), 'n_clusters']
-        print(f"Optimal number of clusters determined: {optimal_n}")
+        optimal_n = int(results.loc[results[['kmeans_silhouette', 'gmm_silhouette']].mean(axis=1).idxmax(), 'n_clusters'])
 
-        n_clusters = self.get_user_input_int(f"Enter the number of clusters (default: {optimal_n}): ", optimal_n)
+        ensemble_methods = [self.soft_voting_ensemble, self.majority_voting_ensemble, self.stacking_ensemble]
+        ensemble_scores = []
+        ensemble_labels = []
 
-        ensemble_types = ["Soft Voting", "Majority Voting", "Stacking"]
-        print("\nChoose the ensemble type:")
-        for i, etype in enumerate(ensemble_types, 1):
-            print(f"{i}. {etype}")
+        for method in ensemble_methods:
+            labels = method(features_scaled, optimal_n)
+            score = silhouette_score(features_scaled, labels)
+            ensemble_scores.append(score)
+            ensemble_labels.append(labels)
 
-        ensemble_choice = self.get_user_input_int("Enter the number corresponding to your choice: ", 1, 3)
+        best_method_index = int(np.argmax(ensemble_scores))
+        best_labels = ensemble_labels[best_method_index]
 
-        if ensemble_choice == 1:
-            labels = self.soft_voting_ensemble(features_scaled, n_clusters)
-        elif ensemble_choice == 2:
-            labels = self.majority_voting_ensemble(features_scaled, n_clusters)
-        else:
-            labels = self.stacking_ensemble(features_scaled, n_clusters)
-
-        print(f"\nUsing {ensemble_types[ensemble_choice-1]} Ensemble")
-
-        plot_ensemble(features_scaled, labels, output_dir)
-        scores = calculate_clustering_scores(features_scaled, labels)
+        scores = calculate_clustering_scores(features_scaled, best_labels)
 
         return {
             'scores': scores,
-            'optimal_k': n_clusters,
-            'ensemble_type': ensemble_choice
+            'optimal_k': optimal_n,
+            'ensemble_type': best_method_index + 1  # 1: Soft Voting, 2: Majority Voting, 3: Stacking
         }
 
     def evaluate_clustering_models(self, features_scaled: np.ndarray) -> pd.DataFrame:
@@ -56,7 +53,8 @@ class EnsembleClusterer:
             kmeans_silhouette = silhouette_score(features_scaled, kmeans_labels)
 
             gmm = GaussianMixture(n_components=n_clusters, random_state=42)
-            gmm_labels = gmm.fit_predict(features_scaled)
+            gmm.fit(features_scaled)
+            gmm_labels = gmm.predict(features_scaled)
             gmm_silhouette = silhouette_score(features_scaled, gmm_labels)
 
             results.append((n_clusters, kmeans_silhouette, gmm_silhouette))
@@ -69,15 +67,11 @@ class EnsembleClusterer:
         kmeans_labels = kmeans.fit_predict(features_scaled)
 
         gmm = GaussianMixture(n_components=n_clusters, random_state=42)
-        gmm_labels = gmm.fit_predict(features_scaled)
+        gmm.fit(features_scaled)
+        gmm_labels = gmm.predict(features_scaled)
 
         ensemble_labels = np.round((kmeans_labels + gmm_labels) / 2).astype(int)
-
-        unique_labels = np.unique(ensemble_labels)
-        label_mapping = {old_label: new_label for new_label, old_label in enumerate(unique_labels)}
-        final_labels = np.array([label_mapping[label] for label in ensemble_labels])
-
-        return final_labels
+        return ensemble_labels
 
     def majority_voting_ensemble(self, features_scaled: np.ndarray, n_clusters: int) -> np.ndarray:
         """Perform majority voting ensemble."""
@@ -85,10 +79,10 @@ class EnsembleClusterer:
         kmeans_labels = kmeans.fit_predict(features_scaled)
 
         gmm = GaussianMixture(n_components=n_clusters, random_state=42)
-        gmm_labels = gmm.fit_predict(features_scaled)
+        gmm.fit(features_scaled)
+        gmm_labels = gmm.predict(features_scaled)
 
         gmm_labels_aligned = self.align_clusters(kmeans_labels, gmm_labels)
-
         ensemble_labels = np.where(kmeans_labels == gmm_labels_aligned, kmeans_labels, -1)
 
         return ensemble_labels
@@ -100,13 +94,12 @@ class EnsembleClusterer:
         kmeans_distances = kmeans.transform(features_scaled)
 
         gmm = GaussianMixture(n_components=n_clusters, n_init=n_init, random_state=42)
-        gmm_proba = gmm.fit_predict_proba(features_scaled)
+        gmm.fit(features_scaled)
+        gmm_proba = gmm.predict_proba(features_scaled)
 
         meta_features = np.hstack([kmeans_distances, gmm_proba])
-
         meta_clf = RandomForestClassifier(n_estimators=100, random_state=42)
         meta_clf.fit(meta_features, kmeans_labels)
-
         ensemble_labels = meta_clf.predict(meta_features)
 
         return ensemble_labels
@@ -123,23 +116,3 @@ class EnsembleClusterer:
         for i, j in zip(row_ind, col_ind):
             aligned_labels[gmm_labels == j] = i
         return aligned_labels
-
-    @staticmethod
-    def get_user_input_int(prompt: str, default: int, max_value: int = None) -> int:
-        """Get integer input from user with validation."""
-        while True:
-            user_input = input(prompt)
-            if not user_input.strip():
-                return default
-            try:
-                value = int(user_input)
-                if max_value is not None:
-                    if 1 <= value <= max_value:
-                        return value
-                    print(f"Please enter a number between 1 and {max_value}")
-                elif value > 0:
-                    return value
-                else:
-                    print("Please enter a positive integer")
-            except ValueError:
-                print("Please enter a valid integer")
