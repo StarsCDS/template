@@ -1,0 +1,5 @@
+outs:
+- md5: 8884f6001f4c35cf3074bb3abb36f4f4
+  size: 5860422
+  hash: md5
+  path: fashion-mnist_test.csv.zip
