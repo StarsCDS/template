@@ -18,13 +18,13 @@ def plot_clusters_3d(features_scaled: np.ndarray, labels: np.ndarray, title: str
         pca_result[:, 0], pca_result[:, 1], pca_result[:, 2],
         c=labels, cmap='viridis', alpha=0.6, edgecolors='w', s=50
     )
-    
+
     ax.set_title(title)
     ax.set_xlabel('PCA Component 1')
     ax.set_ylabel('PCA Component 2')
     ax.set_zlabel('PCA Component 3')
     plt.colorbar(scatter, label='Cluster label')
-    
+
     os.makedirs(output_dir, exist_ok=True)
     plt.savefig(os.path.join(output_dir, filename))
     plt.close()

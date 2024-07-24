@@ -13,7 +13,7 @@ class DBSCANClusterer:
     def __init__(self):
         self.k = K_NEIGHBORS
 
-    def run(self, df: Any, features_scaled: np.ndarray, output_dir: str) -> Dict[str, Any]:
+    def run(self, _, features_scaled: np.ndarray, output_dir: str) -> Dict[str, Any]:
         """Run DBSCAN Clustering algorithm."""
         neigh = NearestNeighbors(n_neighbors=self.k)
         neigh.fit(features_scaled)

@@ -14,7 +14,7 @@ class EnsembleClusterer:
     def __init__(self):
         self.max_clusters = MAX_CLUSTERS
 
-    def run(self, df: Any, features_scaled: np.ndarray, output_dir: str) -> Dict[str, Any]:
+    def run(self, _, features_scaled: np.ndarray, output_dir: str) -> Dict[str, Any]:
         """Run Ensemble Clustering algorithm."""
         results = self.evaluate_clustering_models(features_scaled)
         optimal_n = results.loc[results[['kmeans_silhouette', 'gmm_silhouette']].mean(axis=1).idxmax(), 'n_clusters']
@@ -37,7 +37,7 @@ class EnsembleClusterer:
             labels = self.stacking_ensemble(features_scaled, n_clusters)
 
         print(f"\nUsing {ensemble_types[ensemble_choice-1]} Ensemble")
-        
+
         plot_ensemble(features_scaled, labels, output_dir)
         scores = calculate_clustering_scores(features_scaled, labels)
 

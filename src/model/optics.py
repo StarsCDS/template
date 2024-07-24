@@ -11,7 +11,7 @@ from config import (
 class OPTICSClusterer:
     """OPTICS Clustering class."""
 
-    def run(self, df: Any, features_scaled: np.ndarray, output_dir: str) -> Dict[str, Any]:
+    def run(self, _, features_scaled: np.ndarray, output_dir: str) -> Dict[str, Any]:
         """Run OPTICS Clustering algorithm."""
         min_samples = max(5, int(MIN_SAMPLES_FACTOR * len(features_scaled)))
         min_cluster_size = max(5, int(MIN_CLUSTER_SIZE_FACTOR * len(features_scaled)))

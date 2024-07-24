@@ -12,7 +12,7 @@ class KMeansClusterer:
     def __init__(self):
         self.max_clusters = MAX_CLUSTERS
 
-    def run(self, df: Any, features_scaled: np.ndarray, output_dir: str) -> Dict[str, Any]:
+    def run(self, _, features_scaled: np.ndarray, output_dir: str) -> Dict[str, Any]:
         """Run KMeans clustering algorithm."""
         inertia = []
         silhouette_scores = []
@@ -21,19 +21,19 @@ class KMeansClusterer:
             kmeans.fit(features_scaled)
             inertia.append(kmeans.inertia_)
             silhouette_scores.append(silhouette_score(features_scaled, kmeans.labels_))
-        
+
         optimal_k_silhouette = silhouette_scores.index(max(silhouette_scores)) + 2
         optimal_k_elbow = self.find_elbow(range(2, self.max_clusters + 1), inertia)
         print(f"Optimal number of clusters based on silhouette score: {optimal_k_silhouette}")
         print(f"Optimal number of clusters based on elbow method: {optimal_k_elbow}")
-        
+
         optimal_k = optimal_k_silhouette  # Use silhouette score's optimal k as default
         optimal_k = self.get_user_input(optimal_k)
 
         kmeans = KMeans(n_clusters=optimal_k, random_state=42)
         clusters = kmeans.fit_predict(features_scaled)
         plot_kmeans(features_scaled, clusters, output_dir)
-        
+
         scores = calculate_clustering_scores(features_scaled, clusters)
         return {'scores': scores, 'optimal_k': optimal_k}
 

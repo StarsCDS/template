@@ -35,27 +35,27 @@ class ClusteringModelSelector:
         for batch in self.dataloader:
             all_data.append(batch)
         all_data = torch.cat(all_data, dim=0)
-        
+
         data_np = all_data.numpy()
-        
+
         columns = [
             'Signal Duration (microsec)', 'Azimuthal Angle (degrees)',
             'Elevation Angle (degrees)', 'PRI (microsec)', 'Timestamp (microsec)',
             'Signal Strength (dBm)', 'Signal Frequency (MHz)', 'Amplitude'
         ]
         df = pd.DataFrame(data_np, columns=columns)
-        
+
         features_scaled = self.scaler.fit_transform(data_np)
-        
+
         return df, features_scaled
 
     def select_model(self, model_name: str) -> None:
         """Select and run a clustering model."""
         df, features_scaled = self.prepare_data()
-        
+
         if model_name not in self.models:
             raise ValueError(f"Unknown model: {model_name}")
-        
+
         results = self.models[model_name].run(df, features_scaled, self.output_dir)
 
         print(f"Results for {model_name}:")

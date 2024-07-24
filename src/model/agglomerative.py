@@ -10,7 +10,7 @@ from config import (
 class AgglomerativeClusterer:
     """Agglomerative Clustering class."""
 
-    def run(self, df: Any, features_scaled: np.ndarray, output_dir: str) -> Dict[str, Any]:
+    def run(self, _, features_scaled: np.ndarray, output_dir: str) -> Dict[str, Any]:
         """Run Agglomerative Clustering algorithm."""
         max_clusters = min(MAX_CLUSTERS, int(np.sqrt(len(features_scaled))))
 

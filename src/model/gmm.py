@@ -14,7 +14,7 @@ class GMMClusterer:
     def __init__(self):
         self.max_components = MAX_COMPONENTS
 
-    def run(self, df: Any, features_scaled: np.ndarray, output_dir: str) -> Dict[str, Any]:
+    def run(self, _, features_scaled: np.ndarray, output_dir: str) -> Dict[str, Any]:
         """Run Gaussian Mixture Model Clustering algorithm."""
         silhouette_scores = []
         bic_scores = []
