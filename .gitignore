@@ -1,1 +1,3 @@
 **/__pycache__
+# Ignore generated plots
+/src/plots/
