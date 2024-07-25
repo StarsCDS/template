@@ -1,5 +1,3 @@
-"""Configuration file for the clustering project."""
-
 from typing import Any, Dict, List, Tuple
 
 import numpy as np

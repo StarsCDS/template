@@ -1,5 +1,3 @@
-"""OPTICS Clustering implementation."""
-
 from typing import Dict, Any
 import matplotlib.pyplot as plt
 
@@ -10,10 +8,8 @@ from src.config import (
 from src.utils.scores import calculate_clustering_scores
 
 class OPTICSClusterer:
-    """OPTICS Clustering class."""
 
     def run(self, _, features_scaled: np.ndarray) -> Dict[str, Any]:
-        """Run OPTICS Clustering algorithm."""
         min_samples = max(5, int(MIN_SAMPLES_FACTOR * len(features_scaled)))
         min_cluster_size = max(5, int(MIN_CLUSTER_SIZE_FACTOR * len(features_scaled)))
 
@@ -22,9 +18,6 @@ class OPTICSClusterer:
 
         neighbors = NearestNeighbors(n_neighbors=optics.min_samples).fit(features_scaled)
         core_distances_nn = np.sort(neighbors.kneighbors(features_scaled)[0][:, -1])
-
-        # fig = plot_optics(features_scaled, labels)
-        # plt.close(fig)  # Close the figure to free up memory
 
         scores = calculate_clustering_scores(features_scaled, labels)
 

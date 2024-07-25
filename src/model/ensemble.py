@@ -1,5 +1,3 @@
-"""Ensemble Clustering implementation."""
-
 from typing import Dict, Any
 import numpy as np
 import pandas as pd
@@ -13,13 +11,9 @@ from src.config import MAX_CLUSTERS
 from src.utils.scores import calculate_clustering_scores
 
 class EnsembleClusterer:
-    """Ensemble Clustering class."""
-
     def __init__(self):
         self.max_clusters = MAX_CLUSTERS
-
     def run(self, _, features_scaled: np.ndarray) -> Dict[str, Any]:
-        """Run Ensemble Clustering algorithm."""
         results = self.evaluate_clustering_models(features_scaled)
         optimal_n = int(results.loc[results[['kmeans_silhouette', 'gmm_silhouette']].mean(axis=1).idxmax(), 'n_clusters'])
 
@@ -45,7 +39,6 @@ class EnsembleClusterer:
         }
 
     def evaluate_clustering_models(self, features_scaled: np.ndarray) -> pd.DataFrame:
-        """Evaluate different clustering models."""
         results = []
         for n_clusters in range(2, self.max_clusters + 1):
             kmeans = KMeans(n_clusters=n_clusters, random_state=42)
@@ -62,7 +55,6 @@ class EnsembleClusterer:
         return pd.DataFrame(results, columns=['n_clusters', 'kmeans_silhouette', 'gmm_silhouette'])
 
     def soft_voting_ensemble(self, features_scaled: np.ndarray, n_clusters: int) -> np.ndarray:
-        """Perform soft voting ensemble."""
         kmeans = KMeans(n_clusters=n_clusters, random_state=42)
         kmeans_labels = kmeans.fit_predict(features_scaled)
 
@@ -74,7 +66,6 @@ class EnsembleClusterer:
         return ensemble_labels
 
     def majority_voting_ensemble(self, features_scaled: np.ndarray, n_clusters: int) -> np.ndarray:
-        """Perform majority voting ensemble."""
         kmeans = KMeans(n_clusters=n_clusters, random_state=42)
         kmeans_labels = kmeans.fit_predict(features_scaled)
 
@@ -88,7 +79,6 @@ class EnsembleClusterer:
         return ensemble_labels
 
     def stacking_ensemble(self, features_scaled: np.ndarray, n_clusters: int, n_init: int = 10) -> np.ndarray:
-        """Perform stacking ensemble."""
         kmeans = KMeans(n_clusters=n_clusters, n_init=n_init, random_state=42)
         kmeans_labels = kmeans.fit_predict(features_scaled)
         kmeans_distances = kmeans.transform(features_scaled)
@@ -106,7 +96,6 @@ class EnsembleClusterer:
 
     @staticmethod
     def align_clusters(kmeans_labels: np.ndarray, gmm_labels: np.ndarray) -> np.ndarray:
-        """Align cluster labels from different algorithms."""
         size = max(kmeans_labels.max(), gmm_labels.max()) + 1
         matrix = np.zeros((size, size), dtype=np.int64)
         for k, g in zip(kmeans_labels, gmm_labels):

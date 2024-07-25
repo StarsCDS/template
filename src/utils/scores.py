@@ -1,10 +1,7 @@
-"""Utility functions for clustering."""
-
 from typing import Dict
 from src.config import np, silhouette_score, calinski_harabasz_score, davies_bouldin_score
 
 def calculate_clustering_scores(features_scaled: np.ndarray, labels: np.ndarray) -> Dict[str, float]:
-    """Calculate clustering performance scores."""
     if len(set(labels)) > 1:
         silhouette_avg = silhouette_score(features_scaled, labels)
         calinski_harabasz = calinski_harabasz_score(features_scaled, labels)

@@ -1,18 +1,8 @@
-# import sys
-# import os
-
-# # Ensure the root of the repo is in the path
-# sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../')))
 import pytest
 import numpy as np
 from src.config import BATCH_SIZE
 from src.data.radar_synthetic import get_dataloader
 from src.model.dbscan import DBSCANClusterer
-
-
-
-
-
 
 @pytest.fixture
 def dataloader():

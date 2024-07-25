@@ -1,5 +1,3 @@
-"""Agglomerative Clustering implementation."""
-
 from typing import Dict, Any
 import matplotlib.pyplot as plt
 
@@ -8,10 +6,8 @@ from src.config import (
 )
 from src.utils.scores import calculate_clustering_scores
 class AgglomerativeClusterer:
-    """Agglomerative Clustering class."""
 
     def run(self, _, features_scaled: np.ndarray) -> Dict[str, Any]:
-        """Run Agglomerative Clustering algorithm."""
         max_clusters = min(MAX_CLUSTERS, int(np.sqrt(len(features_scaled))))
 
         silhouette_scores = []
