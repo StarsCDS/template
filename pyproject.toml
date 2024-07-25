@@ -22,6 +22,7 @@ torch = "^2.3.0"
 torchvision = "^0.18.0"
 black = "^24.4.2"
 matplotlib = "^3.9.1"
+hdbscan = "^0.8.37"
 
 [build-system]
 requires = ["poetry-core"]
