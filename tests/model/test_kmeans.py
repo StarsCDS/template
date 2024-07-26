@@ -1,14 +1,21 @@
+<<<<<<< HEAD
 import sys
 import os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
+=======
+>>>>>>> c07fe33baab88ba24d304984191ccb63eefac9e3
 import pytest
 import numpy as np
 from src.config import BATCH_SIZE
 from src.data.radar_synthetic import get_dataloader
 from src.model.kmeans import KMeansClusterer
+<<<<<<< HEAD
 # from config import BATCH_SIZE
 # from data.radar_synthetic import get_dataloader
 # from model.kmeans import KMeansClusterer
+=======
+
+>>>>>>> c07fe33baab88ba24d304984191ccb63eefac9e3
 @pytest.fixture
 def dataloader():
     return get_dataloader(batch_size=BATCH_SIZE, shuffle=True)
