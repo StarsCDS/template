@@ -1,6 +1,0 @@
-[core]
-    remote = server
-    autostage = true
-['remote "server"']
-    url = ssh://dvc@10.24.36.11/opt/dvc
-    password = stars123

@@ -1,5 +1,3 @@
-"""HDBSCAN Clustering implementation."""
-
 from typing import Dict, Any
 import matplotlib.pyplot as plt
 
@@ -8,7 +6,6 @@ from src.config import (
 )
 from src.utils.scores import calculate_clustering_scores
 class HDBSCANClusterer:
-    """HDBSCAN Clustering class."""
 
     def run(self, _, features_scaled: np.ndarray) -> Dict[str, Any]:
         """Run HDBSCAN Clustering algorithm."""
@@ -17,9 +14,6 @@ class HDBSCANClusterer:
 
         clusterer = hdbscan.HDBSCAN(min_cluster_size=min_cluster_size, min_samples=min_samples)
         labels = clusterer.fit_predict(features_scaled)
-
-        # fig = plot_hdbscan(features_scaled, labels)
-        # plt.close(fig)  # Close the figure to free up memory
 
         scores = calculate_clustering_scores(features_scaled, labels)
 

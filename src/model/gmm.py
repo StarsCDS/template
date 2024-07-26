@@ -1,5 +1,3 @@
-"""Gaussian Mixture Model Clustering implementation."""
-
 from typing import Dict, Any
 import matplotlib.pyplot as plt
 
@@ -9,13 +7,11 @@ from src.config import (
 )
 from src.utils.scores import calculate_clustering_scores
 class GMMClusterer:
-    """Gaussian Mixture Model Clustering class."""
 
     def __init__(self):
         self.max_components = MAX_COMPONENTS
 
     def run(self, _, features_scaled: np.ndarray) -> Dict[str, Any]:
-        """Run Gaussian Mixture Model Clustering algorithm."""
         silhouette_scores = []
         bic_scores = []
 
@@ -34,10 +30,6 @@ class GMMClusterer:
         gmm = GaussianMixture(n_components=optimal_k, random_state=RANDOM_STATE)
         gmm.fit(features_scaled)
         labels = gmm.predict(features_scaled)
-
-        # fig = plot_gmm(features_scaled, labels)
-        # plt.close(fig)  # Close the figure to free up memory
-
         scores = calculate_clustering_scores(features_scaled, labels)
 
         return {

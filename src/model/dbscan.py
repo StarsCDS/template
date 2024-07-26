@@ -1,5 +1,3 @@
-"""DBSCAN Clustering implementation."""
-
 from typing import Dict, Any
 import matplotlib.pyplot as plt
 
@@ -8,7 +6,6 @@ from src.config import (
 )
 from src.utils.scores import calculate_clustering_scores
 class DBSCANClusterer:
-    """DBSCAN Clustering class."""
 
     def __init__(self):
         self.k = K_NEIGHBORS
@@ -26,9 +23,6 @@ class DBSCANClusterer:
 
         dbscan = DBSCAN(eps=eps, min_samples=min_samples)
         clusters = dbscan.fit_predict(features_scaled)
-
-        # fig = plot_dbscan(features_scaled, clusters)
-        # plt.close(fig)  # Close the figure to free up memory
 
         scores = calculate_clustering_scores(features_scaled, clusters)
 

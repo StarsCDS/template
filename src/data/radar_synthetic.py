@@ -1,15 +1,8 @@
-"""Data loader for radar dataset."""
-
 from datetime import datetime, timedelta
 from typing import List
 
-# from config import np, pd, torch, Dataset, DataLoader
 from src.config import np, pd, torch, Dataset, DataLoader
-
-"""Data loader for radar dataset."""
-
 class RadarDataset(Dataset):
-    """Custom Dataset for radar data."""
 
     def __init__(self, n_samples: int = 1000):
         self.data = self.generate_radar_data(n_samples)
@@ -22,7 +15,6 @@ class RadarDataset(Dataset):
 
     @staticmethod
     def generate_radar_data(n_samples: int = 1000) -> pd.DataFrame:
-        """Generate synthetic radar data."""
         np.random.seed(42)  # For reproducibility of the results
 
         signal_duration = np.random.uniform(1e-6, 1e-3, n_samples) * 1e6
@@ -53,6 +45,5 @@ class RadarDataset(Dataset):
         return df
 
 def get_dataloader(batch_size: int = 32, shuffle: bool = True, num_workers: int = 4) -> DataLoader:
-    """Create a DataLoader for the radar dataset."""
     dataset = RadarDataset()
     return DataLoader(dataset, batch_size=batch_size, shuffle=shuffle, num_workers=num_workers)
