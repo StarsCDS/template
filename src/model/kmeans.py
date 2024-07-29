@@ -1,8 +1,17 @@
-from typing import Dict, Any, List
-import matplotlib.pyplot as plt
+"""
+KMeans clustering implementation module.
+- This module provides a KMeansClusterer class for performing KMeans clustering
+  on given data.
 
+Imports:
+    - typing: For type hinting
+    - NumPy, KMeans, silhouette_score, MAX_CLUSTERS and matplotlib plt from src.config
+    - calculate_clustering_scores from src.utils.scores
+"""
+
+from typing import Dict, Any, List
 from src.config import (
-    np, KMeans, silhouette_score, MAX_CLUSTERS
+    np, KMeans, silhouette_score, MAX_CLUSTERS, plt
 )
 from src.utils.scores import calculate_clustering_scores
 class KMeansClusterer:

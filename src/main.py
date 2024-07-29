@@ -1,8 +1,30 @@
+"""
+Main script for running clustering models on synthetic radar data.
+
+This module provides a command-line interface for selecting and running
+various clustering algorithms on synthetic radar data.
+
+Imports:
+    - sys: For manipulating the Python runtime environment
+    - os: For interacting with the operating system
+    - typing: For type hinting
+    - Clustering models from src.model
+    - Data loader from src.data.radar_synthetic
+    - Configuration and utilities from src.config
+
+Note:
+    This script modifies the Python path to include the parent directory
+    of the current file, allowing for absolute imports from the src package.
+"""
+
 import sys
 import os
 from typing import Dict, Any, Tuple
 
+
+# Add the parent directory of the current file to the Python path
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======
@@ -10,6 +32,9 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 >>>>>>> 6b4dd4b (Update README.md)
 =======
 >>>>>>> b371bf6 (Refactor project structure, implement multiple clustering models, add tests, and synthetic data loader)
+=======
+
+>>>>>>> f511721 (Added docstrings)
 from src.config import (
     torch, pd, DataLoader, StandardScaler, BATCH_SIZE
 )
@@ -23,7 +48,30 @@ from src.model.hdbscan_clusterer import HDBSCANClusterer
 from src.data.radar_synthetic import get_dataloader
 
 class ClusteringModelSelector:
+    """
+    A class for selecting and running different clustering models.
+
+    This class provides methods to prepare data, select a clustering model,
+    and run the selected model on the prepared data.
+
+    Attributes
+    ----------
+    dataloader : DataLoader
+        A PyTorch DataLoader object containing the synthetic radar data.
+    models : Dict[str, Any]
+        A dictionary of clustering model objects from src.model.
+    scaler : StandardScaler
+        A scikit-learn StandardScaler object for data normalization.
+    """
     def __init__(self, dataloader: DataLoader):
+        """
+        Initialize the ClusteringModelSelector.
+        
+        Parameters
+        ----------
+        dataloader : DataLoader
+            A PyTorch DataLoader object containing the synthetic radar data.
+        """
         self.dataloader = dataloader
         self.models: Dict[str, Any] = {
             'kmeans': KMeansClusterer(),
@@ -37,6 +85,16 @@ class ClusteringModelSelector:
         self.scaler = StandardScaler()
 
     def prepare_data(self) -> Tuple[pd.DataFrame, Any]:
+        """
+        Prepare the data for clustering.
+
+        Returns
+        -------
+        Tuple[pd.DataFrame, Any]
+            A tuple containing a pandas DataFrame of the original data
+            and a numpy array of the scaled features.
+        """
+        
         all_data = []
         for batch in self.dataloader:
             all_data.append(batch)
@@ -56,6 +114,20 @@ class ClusteringModelSelector:
         return df, features_scaled
 
     def select_model(self, model_name: str) -> None:
+        """
+        Select and run a clustering model.
+
+        Parameters
+        ----------
+        model_name : str
+            The name of the clustering model to run.
+
+        Raises
+        ------
+        ValueError
+            If the specified model_name is not in the list of available models.
+        """
+        
         df, features_scaled = self.prepare_data()
         
         if model_name not in self.models:
@@ -79,6 +151,14 @@ class ClusteringModelSelector:
             print(f"Ensemble type: {ensemble_types[results['ensemble_type']]}")
 
 def main() -> None:
+    """
+    Main function to run the clustering process.
+
+    This function sets up the data loader using src.data.radar_synthetic,
+    creates a ClusteringModelSelector, and provides a command-line interface
+    for the user to select a clustering model.
+    """
+    
     dataloader = get_dataloader(batch_size=BATCH_SIZE, shuffle=True)
     model_selector = ClusteringModelSelector(dataloader=dataloader)
 
