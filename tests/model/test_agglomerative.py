@@ -1,9 +1,23 @@
+"""
+Test module for Agglomerative Clustering.
+
+This module contains unit tests for the AgglomerativeClusterer class
+from the src.model.agglomerative module.
+
+Imports:
+    - sys, os: For modifying Python path
+    - numpy (as np): For numerical operations
+    - pytest: For test fixtures and assertions
+    - BATCH_SIZE from src.config: For setting batch size in data loading
+    - get_dataloader from src.data.radar_synthetic: For creating test data
+    - AgglomerativeClusterer from src.model.agglomerative: The class being tested
+"""
 import sys
 import os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
-import pytest
-import numpy as np
-from src.config import BATCH_SIZE
+from src.config import ( 
+    np,pytest,BATCH_SIZE
+)
 from src.data.radar_synthetic import get_dataloader
 from src.model.agglomerative import AgglomerativeClusterer
 
