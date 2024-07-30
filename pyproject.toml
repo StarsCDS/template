@@ -21,16 +21,9 @@ pandas = "^2.2.2"
 torch = "^2.3.0"
 torchvision = "^0.18.0"
 black = "^24.4.2"
-<<<<<<< HEAD
-<<<<<<< HEAD
 matplotlib = "^3.9.1"
 hdbscan = "^0.8.37"
-=======
->>>>>>> 96f0b24 (add template for custom dataset and model)
-=======
-matplotlib = "^3.9.1"
-hdbscan = "^0.8.37"
->>>>>>> 6b4dd4b (Update README.md)
+
 
 [build-system]
 requires = ["poetry-core"]

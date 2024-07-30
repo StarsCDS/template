@@ -1,18 +1,10 @@
 # References:
 ## build model: https://pytorch.org/tutorials/beginner/basics/buildmodel_tutorial.html
 ## save/load: https://pytorch.org/tutorials/beginner/basics/saveloadrun_tutorial.html
-<<<<<<< HEAD
-<<<<<<< HEAD
 import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-=======
->>>>>>> 96f0b24 (add template for custom dataset and model)
-=======
-import sys
-import os
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
->>>>>>> 6b4dd4b (Update README.md)
+
 
 import torch
 from torch import nn, optim

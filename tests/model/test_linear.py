@@ -1,15 +1,6 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 import sys
 import os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
-=======
->>>>>>> 96f0b24 (add template for custom dataset and model)
-=======
-import sys
-import os
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
->>>>>>> 6b4dd4b (Update README.md)
 import torch
 from src.model.linear import Linear
 
