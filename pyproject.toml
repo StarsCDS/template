@@ -21,6 +21,8 @@ pandas = "^2.2.2"
 torch = "^2.3.0"
 torchvision = "^0.18.0"
 black = "^24.4.2"
+matplotlib = "^3.9.1"
+hdbscan = "^0.8.37"
 h5py = "^3.11.0"
 
 [build-system]
