@@ -1,6 +1,9 @@
+import sys
+import os
 import torch
 from src.model.linear import Linear
 
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
 
 def test_init():
     model = Linear(1, 1)
