@@ -1,6 +1,9 @@
 # References:
 ## build model: https://pytorch.org/tutorials/beginner/basics/buildmodel_tutorial.html
 ## save/load: https://pytorch.org/tutorials/beginner/basics/saveloadrun_tutorial.html
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 import torch
 from torch import nn, optim
@@ -86,7 +89,7 @@ def train():
 
 
 @app.command()
-def evaluate():
+def evalualte():
     model.load_state_dict(torch.load(SAVED_MODEL))
     model.eval()
 
